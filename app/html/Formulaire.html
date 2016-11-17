@@ -1,0 +1,59 @@
+<div class="container" style="margin-top:40px;background-color: #428bca;">
+    <div class="row" style=""><h3 class="col-lg-12 text-center"><span> <i class="glyphicon glyphicon-user"></i> </span>
+        Formulaire pour créer un compte : {{client.Prenom}} {{client.Nom}}</h3>
+    </div>
+</div>
+<form name="formDemo" style="margin-top:40px;" #formClient="ngForm">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group col-lg-2 col-lg-offset-1"><label class="control-label">Sexe</label>
+                    <select id="sexe" name="sexe" class="form-control" [(ngModel)]="client.Sexe" required>
+                        <option *ngFor="let s of Sexes" [value]="s.Code">{{s.Libelle}}</option>
+                        <!--
+                        <option value="H">Homme</option>
+                        <option value="F">Femme</option>
+                        -->
+                    </select>
+                </div>
+                <div class="form-group col-lg-4 col-md-5 col-sm-6 col-xs-12" [ngClass]="{'has-error': !prenom.valid, 'has-success': prenom.valid}">
+                    <label class="control-label" for="prenom">Prénom</label>
+                    <input type="text" class="form-control" id="prenom" name="prenom" required maxlength="50" minlength="2" [(ngModel)]="client.Prenom" #prenom="ngModel">
+                </div>
+
+                <div *ngIf="prenom.errors && prenom.touched">
+                    <span class="text-danger" *ngIf="prenom.errors.minlength"> Le prénom doit être au minumum 2 caractéres </span>
+                    <span class="text-danger" *ngIf="prenom.errors.required"> Le prénom est obligatoire </span>
+                </div>
+
+                <!-- <pre *ngIf="prenom.errors">{{ prenom.errors | json }}</pre> -->
+
+                <!-- <pre> Class CSS : <br/> {{prenom.className}} </pre>
+                <pre> Valeur : {{prenom.value }}</pre> -->
+
+                <div class="form-group col-lg-4 col-md-5 col-sm-6 col-xs-12">
+                    <label class="control-label" for="nom">Nom</label>
+                    <input type="text" class="form-control" id="nom" name="nom" required maxlength="50" minlength="2" [(ngModel)]="client.Nom">
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group col-lg-10 col-md-10 col-lg-offset-1">
+                    <label class="control-label" for="email">Adresse e-mail</label>
+                    <input type="text" class="form-control" id="email" name="email" required pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" [(ngModel)]="client.AdresseMail">
+                </div>
+            </div>
+            <div>
+                <div class='text-center'>
+                    <div class="btn-group">
+                        <button type="button" id="btnValide" name="btnValide" class="btn btn-primary center-block" (click)="onClick_Valider(formClient)" [disabled]="formClient.invalid">
+                            Valider
+                        </button>
+                        <button type="button" id="btnAnnuler" name="btnAnnuler" class="btn btn-info center-block" (click)="onClick_Annuler()">
+                            Annuler
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
